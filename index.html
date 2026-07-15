@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -30,7 +30,9 @@
     .start-screen > *, .end-screen > * { position: relative; z-index: 1; }
     .game-screen { background: transparent; }
     .hidden { display: none; }
-    .end-screen h1 { font-size: clamp(2rem, 6vw, 4rem); margin-bottom: 18px; }
+    .end-screen h1 { font-size: clamp(2rem, 6vw, 4rem); margin-top: -40px; margin-bottom: 18px; }
+    #totalTimeDisplay { font-size: clamp(1.2rem, 3.5vw, 1.8rem); font-weight: 700; color: #f5e7a8; margin: 8px 0 10px; }
+    .screenshot-hint { font-size: clamp(1rem, 2.8vw, 1.35rem); font-weight: 700; color: #b9e7ff; margin: 10px 0 22px; text-align: center; max-width: 480px; line-height: 1.5; }
     /* 【优化3】结束界面 Discord 按钮：images/btn_discord.png */
     .end-screen button { border: none; outline: none; cursor: pointer; background: none; padding: 0; box-shadow: none; }
     .end-screen button img { display: block; width: 220px; height: auto; transition: transform 0.2s; }
@@ -220,6 +222,8 @@
     <h1>Maze Escaped!</h1>
     <!-- 结束界面总用时文字 -->
     <p id="totalTimeDisplay">Total Time: 0 min 0 s</p>
+    <!-- 截图提示文字 -->
+    <p class="screenshot-hint">📸 Take a screenshot and share your success through the button below👇</p>
     <!-- 【优化3】Discord 按钮图片：images/btn_discord.png -->
     <button id="discordButton"><img src="images/btn_discord.png" alt="返回 Discord" /></button>
   </div>
@@ -349,8 +353,6 @@
     const tipOverlay = document.getElementById('tipOverlay');
     const tipText = document.getElementById('tipText');
     const DISCORD_LINK = 'https://discord.com/channels/611028792911200256/1521094395108130867';
-    const WEBHOOK_URL = "https://discord.com/api/webhooks/1526500231485591643/xlVkzVzWdwcMWZnMmlkjkAzxeU5b_EneN8o9tIfL4rH3e03Aj2CaMYBEa7-enXstbhwb"; // ← 在这里替换成你的 Discord Webhook 链接
-    const POSTER_IMAGE_URL = "https://cdn.discordapp.com/attachments/993359474767188048/1526832681055158292/HKC-fjdbQAA_JNA.jpg?ex=6a58753e&is=6a5723be&hm=0aeb20e6c0392cbe8cbc3205775e2721cc6eea1ff3948ef90f2483a19a32fb8b&"; // ← 在这里替换成你的海报图片URL
     function resizeRainCanvas() {
       rainCanvas.width = window.innerWidth;
       rainCanvas.height = window.innerHeight;
@@ -1022,29 +1024,7 @@
     canvas.addEventListener('touchstart', (e) => e.preventDefault(), { passive: false });
     canvas.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
 
-    discordButton.addEventListener('click', async () => {
-      // 发送成绩到 Discord Webhook
-      try {
-        const formattedTime = formatTotalTime(totalElapsedTime);
-        const embed = {
-          title: "🎉 Maze Escaped!",
-          description: `Total Time: ${formattedTime}`, // ← 文案可在此处修改
-          image: {
-            url: POSTER_IMAGE_URL
-          },
-          color: 0x00ff00
-        };
-
-        await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ embeds: [embed] })
-        });
-      } catch (error) {
-        console.error('Webhook 发送失败:', error);
-      }
-
-      // 跳转到 Discord
+    discordButton.addEventListener('click', () => {
       window.open(DISCORD_LINK, '_blank');
     });
   </script>
