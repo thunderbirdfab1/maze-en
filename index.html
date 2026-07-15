@@ -362,7 +362,7 @@
     function resizeGameCanvas() {
       const isMobile = window.innerWidth <= 768;
       if (isMobile) {
-        const w = window.innerWidth * 1.8; /* 手机端放大系数：改这个数字即可线性调整画布大小（如 1.5/1.7/1.8/2.0） */
+        const w = window.innerWidth * 1.5; /* 手机端放大系数：改这个数字即可线性调整画布大小（如 1.5/1.7/1.8/2.0） */
         canvas.style.setProperty('width', w + 'px', 'important');
         canvas.style.setProperty('height', (w * canvas.height / canvas.width) + 'px', 'important');
         canvas.style.setProperty('max-width', 'none', 'important');
