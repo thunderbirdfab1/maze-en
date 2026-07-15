@@ -47,6 +47,7 @@
     button:hover img { transform: translateY(-3px); }
     #startButton img { width: 200px; height: auto; /* 开始按钮图片宽度，可按需微调 */ }
     #startButton { margin-top: 40px; /* 开始按钮下移距离，可按需微调 */ }
+    .control-hint { font-size: clamp(0.8rem, 2vw, 1rem); color: #b9e7ff; margin-top: 24px; text-align: center; line-height: 1.8; opacity: 0.85; }
     /* 【优化2】开始界面标题上移 + 动态宝箱 */
     .start-screen { justify-content: flex-start; padding-top: 8vh; }
     .chest-wrapper {
@@ -183,6 +184,8 @@
     </div>
     <!-- 【优化3】开始按钮图片：images/btn_start.png -->
     <button id="startButton"><img src="images/btn_start.png" alt="开始" /></button>
+    <!-- 操作提示文字 -->
+    <p class="control-hint">PC: Move with arrow keys and WASD<br>Mobile: Swipe to move</p>
   </div>
 
   <div class="screen game-screen hidden" id="gameScreen">
